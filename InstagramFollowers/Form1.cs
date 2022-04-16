@@ -179,7 +179,7 @@ namespace InstagramFollowers
 
         private void button1_Click(object sender, EventArgs e)
         {
-            label5.Text = listBox2.SelectedItem.ToString();
+            
         }
     }
 }
