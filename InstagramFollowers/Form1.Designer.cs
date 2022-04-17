@@ -39,6 +39,7 @@ namespace InstagramFollowers
             this.label4 = new System.Windows.Forms.Label();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -124,28 +125,37 @@ namespace InstagramFollowers
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1259, 447);
+            this.label5.Location = new System.Drawing.Point(1056, 56);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(97, 41);
+            this.label5.Size = new System.Drawing.Size(350, 41);
             this.label5.TabIndex = 9;
-            this.label5.Text = "label5";
+            this.label5.Text = "Takip Etmeyen Kullancilar";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(1075, 107);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(302, 49);
+            this.comboBox1.TabIndex = 10;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1250, 575);
+            this.button1.Location = new System.Drawing.Point(1092, 181);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(188, 58);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "button1";
+            this.button1.Size = new System.Drawing.Size(255, 81);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Takipten Çık !";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1637, 788);
+            this.ClientSize = new System.Drawing.Size(2149, 788);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.label4);
@@ -176,6 +186,7 @@ namespace InstagramFollowers
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
     }
 }

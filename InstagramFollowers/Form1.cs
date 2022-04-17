@@ -40,6 +40,9 @@ namespace InstagramFollowers
             label3.Visible = false;
             listBox2.Visible = false;
             label4.Visible = false;
+            label5.Visible = false;
+            comboBox1.Visible = false;
+            button1.Visible = false;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -157,6 +160,9 @@ namespace InstagramFollowers
                 label3.Visible = true;
                 listBox2.Visible = true;
                 label4.Visible = true;
+                label5.Visible = true;
+                comboBox1.Visible = true;
+                button1.Visible = true;
                 int sayac2 = 1;
                 foreach (var item in notFollow)
                 {
@@ -167,8 +173,10 @@ namespace InstagramFollowers
                 foreach (var item in notFollowers)
                 {
                     listBox2.Items.Add(sayac3 + "->" + item);
+                    comboBox1.Items.Add(item);
                     sayac3++;
                 }
+
 
 
             }
@@ -180,6 +188,27 @@ namespace InstagramFollowers
         private void button1_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                driver.Navigate().GoToUrl("https://www.instagram.com/" + comboBox1.SelectedItem.ToString());
+                Thread.Sleep(3000);
+                IWebElement unfollow = driver.FindElement(By.XPath("/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/div/div[2]/div/span/span[1]/button"));
+                Thread.Sleep(500);
+                unfollow.Click();
+                Thread.Sleep(1000);
+                IWebElement unfollowclick = driver.FindElement(By.XPath("/html/body/div[6]/div/div/div/div[3]/button[1]"));
+                unfollowclick.Click();
+                MessageBox.Show(comboBox1.SelectedItem.ToString()+" Hesabı başarıyla takipten çıkıldı!");
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Beklenmeyen bir hata olustu.");
+            }
         }
     }
 }
