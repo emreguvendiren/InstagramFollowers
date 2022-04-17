@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 namespace InstagramFollowers
 {
@@ -21,11 +23,31 @@ namespace InstagramFollowers
         List<string> Follows = new List<string>();
         List<string> notFollow = new List<string>();
         List<string> notFollowers = new List<string>();
-        string deneme;
+        MySqlConnection con;
+        MySqlCommand cmd;
+        
 
         public Form1()
         {
             InitializeComponent();
+            con = new MySqlConnection("Server=localhost;Database=instagramfollowers;user=root;Pwd=667130Emre.;SslMode=none");
+            //con.Open();
+            //cmd = new MySqlCommand();
+            //cmd.Connection = con;
+            //string s = "emre";
+            //cmd.CommandText = "SELECT * FROM notfollow where notFollows = '"+s+"'";
+            //dr = cmd.ExecuteReader();
+            //if (dr.Read())
+            //{
+            //    MessageBox.Show("ok");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("no");
+            //}
+            //con.Close();
+            
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -36,13 +58,7 @@ namespace InstagramFollowers
         private void Form1_Load_1(object sender, EventArgs e)
         {
             //driver = new ChromeDriver();
-            listBox1.Visible = false;
-            label3.Visible = false;
-            listBox2.Visible = false;
-            label4.Visible = false;
-            label5.Visible = false;
-            comboBox1.Visible = false;
-            button1.Visible = false;
+            button2.Enabled = false;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -156,13 +172,7 @@ namespace InstagramFollowers
                     }
                 }
 
-                listBox1.Visible = true;
-                label3.Visible = true;
-                listBox2.Visible = true;
-                label4.Visible = true;
-                label5.Visible = true;
-                comboBox1.Visible = true;
-                button1.Visible = true;
+                button2.Enabled = true;
                 int sayac2 = 1;
                 foreach (var item in notFollow)
                 {
@@ -196,7 +206,8 @@ namespace InstagramFollowers
             {
                 driver.Navigate().GoToUrl("https://www.instagram.com/" + comboBox1.SelectedItem.ToString());
                 Thread.Sleep(3000);
-                IWebElement unfollow = driver.FindElement(By.XPath("/html/body/div[1]/section/main/div/header/section/div[1]/div[1]/div/div[2]/div/span/span[1]/button"));
+                /////////////////////////////////////////////////////html/body/div[1]/section/main/div/header/section/div[2]/div/div[2]/button
+                IWebElement unfollow = driver.FindElement(By.XPath("/html/body/div[1]/section/main/div/header/section/div[2]/div/div[2]/button"));
                 Thread.Sleep(500);
                 unfollow.Click();
                 Thread.Sleep(1000);
@@ -209,6 +220,48 @@ namespace InstagramFollowers
 
                 MessageBox.Show("Beklenmeyen bir hata olustu.");
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+            con.Open();
+            int sayac = 2;
+            foreach (string item in notFollow)
+            {
+                MySqlDataReader dr;
+                cmd = new MySqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "SELECT * FROM notfollow where notFollows = '" + item + "'";
+                dr = cmd.ExecuteReader();
+                if (!dr.Read())
+                {
+                    cmd = new MySqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandText = "INSERT INTO notfollow(id,userId,notFollows) VALUES('"+sayac+"',1,'" + item + "')";
+                    sayac++;
+                }
+            }
+                //
+                int sayac1 = 1;
+                foreach (string items in notFollowers)
+                {
+                    MySqlDataReader dr;
+                    cmd = new MySqlCommand();
+                    cmd.Connection = con;
+                    cmd.CommandText = "SELECT * FROM notfollowers where notFollowsers = '" + items + "'";
+                    dr = cmd.ExecuteReader();
+                    if (!dr.Read())
+                    {
+                        cmd = new MySqlCommand();
+                        cmd.Connection = con;
+                        cmd.CommandText = "INSERT INTO notfollowers(id,userId,notFollowsers) VALUES('"+sayac1+"',1,'" + items + "')";
+                        sayac1++;
+                    }
+                }
+                MessageBox.Show("VeriTabanina Basariyla Eklendi!");
+                con.Close();
+            
         }
     }
 }
